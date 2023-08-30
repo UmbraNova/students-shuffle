@@ -5,6 +5,29 @@ import winsound
 
 
 
+def ifNoFile():
+    students = [
+        ["Pila Andrei", 1], 
+        ["Craciun Rafael Alexandru", 1],
+        ["Rau Ivona Maria", 1],
+        ["Andrei Stoiceanu", 1],
+        ["Ivan Cecilia", 1],
+        ["Tibrigan Nicolae", 1],
+        ["Nedelcu Alexandru", 1],
+        ["Robu Bogdan", 1],
+        ["Andrei Netoiu", 0]
+        ]
+
+    if os.path.isfile("../students-shuffle/last_name.txt") == False:
+        with open("../students-shuffle/last_name.txt", "w") as fix_file:
+            fix_file.write("a\nb")
+    if os.path.isfile("../students-shuffle/students.txt") == False:
+        with open("../students-shuffle/students.txt", "w") as students_file:
+            for student in students:
+                students_file.write(f"\n{student[0]}    {str(student[1])}")
+
+ifNoFile()
+
 # ===== main code START
 
 def studentsFile():
@@ -39,25 +62,6 @@ def mainF():
         
         return data, names_lines
 
-    students = [
-        ["Pila Andrei", 1], 
-        ["Craciun Rafael Alexandru", 1],
-        ["Rau Ivona Maria", 1],
-        ["Andrei Stoiceanu", 1],
-        ["Ivan Cecilia", 1],
-        ["Tibrigan Nicolae", 1],
-        ["Nedelcu Alexandru", 1],
-        ["Robu Bogdan", 1],
-        ["Andrei Netoiu", 0]
-        ]
-    
-    if os.path.isfile("../students-shuffle/last_name.txt") == False:
-        with open("../students-shuffle/last_name.txt", "w") as fix_file:
-            fix_file.write("a\nb")
-    if os.path.isfile("../students-shuffle/students.txt") == False:
-        with open("../students-shuffle/students.txt", "w") as students_file:
-            for student in students:
-                students_file.write(f"\n{student[0]}    {str(student[1])}")
 
     last_name = open("../students-shuffle/last_name.txt", "r")
 
