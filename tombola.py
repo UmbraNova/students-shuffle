@@ -1,6 +1,8 @@
 import random
 import os
 from tkinter import *
+import winsound
+
 
 
 # ===== main code START
@@ -87,6 +89,10 @@ def selectStudent(student_name, select, data):
 
 
 def increaseValue(name, display):
+    try:
+        winsound.Beep(260, 100)
+    except:
+        BaseException
     students_lst = studentsFile()
     students_file = open("../students-shuffle/students.txt", "r+")
     for student in students_lst:
@@ -104,7 +110,12 @@ def increaseValue(name, display):
                 students_file.write("\n" + student[0] + " " + str(student[1]))
     students_file.close()
 
+
 def decreaseValue(name, display):
+    try:
+        winsound.Beep(180, 100)
+    except:
+        BaseException
     students_lst = studentsFile()
     students_file = open("../students-shuffle/students.txt", "r+")
     # print(display)
@@ -131,20 +142,33 @@ def decreaseValue(name, display):
 # ===== main tkinter START
 root = Tk()
 root.configure(bg='#1F1F1F')
-root.geometry("870x520")
+root.geometry("880x500")
+root.iconphoto(False, PhotoImage(file = "../students-shuffle/images/sample (1).png"))
+root.title("Students Shuffler ^_^")
+
+
 
 def studentText():
+    try:
+        winsound.Beep(1200, 100)
+        winsound.Beep(1500, 100)
+        winsound.Beep(1200, 100)
+        winsound.Beep(1000, 100)
+        winsound.Beep(2000, 100)
+        winsound.Beep(500, 100)
+    except:
+        BaseException
     Label(
         root, 
         text=mainF(),
         width=22,
         height=2,
-        fg="#FF0000",
+        fg="#000000",
         bg="#ffffff",
         font=("Verdana", 20),
         anchor="w",
         justify=CENTER
-        ).grid(row=0, column=1, columnspan=3)
+        ).grid(row=1, column=1, columnspan=3)
     
 Label(
         root, 
@@ -154,7 +178,7 @@ Label(
         font=("Verdana", 20),
         anchor="w",
         justify=CENTER
-        ).grid(row=0, column=1, columnspan=3)
+        ).grid(row=1, column=1, columnspan=3)
 
 Button(
     root, 
@@ -167,9 +191,10 @@ Button(
     command=studentText,
     fg="#4CC1FF",
     bg="black"
-    ).grid(row=0, column=0)
+    ).grid(row=1, column=0)
 
-Label(root, width=150, height=1, bg="black").grid(row=1, column=0, columnspan=50)  # long black line
+Label(root, width=150, height=1, bg="black").grid(row=0, column=0, columnspan=50)  # long black line
+Label(root, width=150, height=1, bg="black").grid(row=2, column=0, columnspan=50)  # long black line
 # ===== main tkinter END
 
 
@@ -184,7 +209,7 @@ fg_color = "#000000"
 font_size = 16
 width_var = 25
 width_var_info = 15
-border_size = 7
+border_size = 10
 bg_color_btn = "#ADADAD"
 decrease_value = "decrease -".upper()
 increase_value = "increase +".upper()
