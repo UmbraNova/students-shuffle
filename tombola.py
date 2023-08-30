@@ -79,27 +79,28 @@ def mainF():
 # ===== main code END
 
 # ===== change value START
-student_value = 0
 
-def increase1():
-    selectStudent("Pila Andrei", True)
-def decrease1():
-    selectStudent("Pila Andrei", False)
+def increase1(data):
+    selectStudent("Pila Andrei", True, data)
+def decrease1(data):
+    selectStudent("Pila Andrei", False, data)
+
+def increase2(data):
+    selectStudent("Craciun Rafael Alexandru", True, data)
+def decrease2(data):
+    selectStudent("Craciun Rafael Alexandru", False, data)
 
 
-def selectStudent(student_name, select=None):
+def selectStudent(student_name, select, data):
     if select == True:
-        increaseValue(student_name)
+        increaseValue(student_name, data)
     elif select == False:
-        decreaseValue(student_name)
+        decreaseValue(student_name, data)
 
 
-def increaseValue(name):
+def increaseValue(name, display):
     students_lst = studentsFile()
     students_file = open("../students-shuffle/students.txt", "r+")
-
-    global student_value
-
     for student in students_lst:
         if name in student[0]:
             value = str(student[1]+1)
@@ -107,20 +108,18 @@ def increaseValue(name):
                 students_file.write("\n" + student[0] + value)
             else:
                 students_file.write("\n" + student[0] + " " + value)
-            student_value = value
+            eval(display+".configure(text=value)")
         else:
             if student[1] > 9:
                 students_file.write("\n" + student[0] + str(student[1]))
             else:
                 students_file.write("\n" + student[0] + " " + str(student[1]))
     students_file.close()
-    rowInfo1.configure(text=student_value)
 
-def decreaseValue(name):
+def decreaseValue(name, display):
     students_lst = studentsFile()
     students_file = open("../students-shuffle/students.txt", "r+")
-
-    global student_value
+    # print(display)
 
     for student in students_lst:
         if name in student[0]:
@@ -129,14 +128,14 @@ def decreaseValue(name):
                 students_file.write("\n" + student[0] + value)
             else:
                 students_file.write("\n" + student[0] + " " + value)
-            student_value = value
+            eval(display+".configure(text=value)")
         else:
             if student[1] > 9:
                 students_file.write("\n" + student[0] + str(student[1]))
             else:
                 students_file.write("\n" + student[0] + " " + str(student[1]))
     students_file.close()
-    rowInfo1.configure(text=student_value)
+    
 # ===== change value END
 
 
@@ -215,14 +214,14 @@ minusButton = Button(
     bg="black",
     text="decrease value",
     borderwidth=5,
-    command=lambda: decrease1(),
+    command=lambda: decrease1("rowInfo1"),
     ).grid(row=3, column=1)
 
 rowInfo1 = Label(
     root,
     fg="red",
     bg="black",
-    text=student_value,
+    text="12",
     )
 
 rowInfo1.grid(row=3, column=2)
@@ -233,8 +232,46 @@ plusButton = Button(
     bg="black",
     text="increase value",
     borderwidth=5,
-    command=lambda: increase1(),
+    command=lambda: increase1("rowInfo1"),
     ).grid(row=3, column=3)
+
+
+
+studentName2 = Label(
+    root,
+    fg="red",
+    bg="black",
+    text="Craciun Rafael Alexandru",
+    ).grid(row=4, column=0)
+
+minusButton = Button(
+    root,
+    fg="red",
+    bg="black",
+    text="decrease value",
+    borderwidth=5,
+    command=lambda: decrease2("rowInfo2"),
+    ).grid(row=4, column=1)
+
+rowInfo2 = Label(
+    root,
+    fg="red",
+    bg="black",
+    text="temp",
+    )
+
+rowInfo2.grid(row=4, column=2)
+
+plusButton = Button(
+    root,
+    fg="red",
+    bg="black",
+    text="increase value",
+    borderwidth=5,
+    command=lambda: increase2("rowInfo2"),
+    ).grid(row=4, column=3)
+    
+
 # ===== tkinter increase decrease list END
 
 root.mainloop()  # tkinter mainloop
