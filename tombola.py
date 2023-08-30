@@ -79,18 +79,6 @@ def mainF():
 # ===== main code END
 
 # ===== change value START
-
-def increase1(data):
-    selectStudent("Pila Andrei", True, data)
-def decrease1(data):
-    selectStudent("Pila Andrei", False, data)
-
-def increase2(data):
-    selectStudent("Craciun Rafael Alexandru", True, data)
-def decrease2(data):
-    selectStudent("Craciun Rafael Alexandru", False, data)
-
-
 def selectStudent(student_name, select, data):
     if select == True:
         increaseValue(student_name, data)
@@ -108,7 +96,7 @@ def increaseValue(name, display):
                 students_file.write("\n" + student[0] + value)
             else:
                 students_file.write("\n" + student[0] + " " + value)
-            eval(display+".configure(text=value)")
+            eval(display+".configure(text=value, bg='green')")
         else:
             if student[1] > 9:
                 students_file.write("\n" + student[0] + str(student[1]))
@@ -128,7 +116,7 @@ def decreaseValue(name, display):
                 students_file.write("\n" + student[0] + value)
             else:
                 students_file.write("\n" + student[0] + " " + value)
-            eval(display+".configure(text=value)")
+            eval(display+".configure(text=value, bg='red')")
         else:
             if student[1] > 9:
                 students_file.write("\n" + student[0] + str(student[1]))
@@ -142,136 +130,163 @@ def decreaseValue(name, display):
 
 # ===== main tkinter START
 root = Tk()
-# root.geometry("800x800")
+root.configure(bg='#1F1F1F')
+root.geometry("870x520")
 
 def studentText():
     Label(
         root, 
         text=mainF(),
-        width=25,
+        width=22,
         height=2,
-        fg="red",
-        bg="black",
-        font=("Verdana", 20)
+        fg="#FF0000",
+        bg="#ffffff",
+        font=("Verdana", 20),
+        anchor="w",
+        justify=CENTER
         ).grid(row=0, column=1, columnspan=3)
     
 Label(
         root, 
         width=25,
         height=2,
-        fg="red",
         bg="black",
-        font=("Verdana", 20)
+        font=("Verdana", 20),
+        anchor="w",
+        justify=CENTER
         ).grid(row=0, column=1, columnspan=3)
 
-winButton = Button(
+Button(
     root, 
     text="Afla Castigatorul",
     font=("Verdana", 20),
-    padx=20,
-    pady=20,
+    # padx=20,
+    # pady=20,
+    width=25,
     borderwidth=5,
     command=studentText,
-    fg="red",
+    fg="#4CC1FF",
     bg="black"
-    )
-winButton.grid(row=0, column=0)
+    ).grid(row=0, column=0)
 
-Label(
-        root, 
-        width=150,
-        height=1,
-        bg="black",
-        ).grid(row=1, column=0, columnspan=50)
+Label(root, width=150, height=1, bg="black").grid(row=1, column=0, columnspan=50)  # long black line
 # ===== main tkinter END
 
 
-    # x = [
-    # "Pila Andrei", 
-    # "Craciun Rafael Alexandru",
-    # "Rau Ivona Maria",
-    # "Andrei Stoiceanu",
-    # "Ivan Cecilia",
-    # "Tibrigan Nicolae",
-    # "Nedelcu Alexandru",
-    # "Robu Bogdan",
-    # "Andrei Netoiu"
-    # ]
-
-
-
 # ===== tkinter increase decrease list START
-studentName1 = Label(
-    root,
-    fg="red",
-    bg="black",
-    text="Pila Andrei",
-    ).grid(row=3, column=0)
+def getDefaultValue(num):
+    students_lst = studentsFile()
+    return students_lst[num-1][1]
 
-minusButton = Button(
-    root,
-    fg="red",
-    bg="black",
-    text="decrease value",
-    borderwidth=5,
-    command=lambda: decrease1("rowInfo1"),
-    ).grid(row=3, column=1)
+# buttons and labels variables
+bg_color = "#4CC1FF"
+fg_color = "#000000"
+font_size = 16
+width_var = 25
+width_var_info = 15
+border_size = 7
+bg_color_btn = "#ADADAD"
+decrease_value = "decrease -".upper()
+increase_value = "increase +".upper()
 
-rowInfo1 = Label(
-    root,
-    fg="red",
-    bg="black",
-    text="12",
-    )
+#  row 1
+name1 = "Pila Andrei"
+row_sec1 = 4
+Label(root, fg=fg_color, bg=bg_color, text=name1, font=("Verdana", font_size), width=width_var).grid(row=row_sec1, column=0)
+Button(root, fg=fg_color, bg=bg_color_btn, text=decrease_value, bd=border_size,
+       command=lambda: selectStudent(name1, False, "rowInfo1")).grid(row=row_sec1, column=1)
+Button(root, fg=fg_color, bg=bg_color_btn, text=increase_value, bd=border_size, 
+       command=lambda: selectStudent(name1, True, "rowInfo1")).grid(row=row_sec1, column=3)
+rowInfo1 = Label(root, fg=fg_color, bg=bg_color, text=getDefaultValue(1), font=("Verdana", font_size), width=width_var_info)
+rowInfo1.grid(row=row_sec1, column=2)
 
-rowInfo1.grid(row=3, column=2)
+#  row 2
+name2 = "Craciun Rafael Alexandru"
+row_sec2 = 5
+Label(root, fg=fg_color, bg=bg_color, text=name2, font=("Verdana", font_size), width=width_var).grid(row=row_sec2, column=0)
+Button(root, fg=fg_color, bg=bg_color_btn, text=decrease_value, bd=border_size,
+       command=lambda: selectStudent(name2, False, "rowInfo2")).grid(row=row_sec2, column=1)
+Button(root, fg=fg_color, bg=bg_color_btn, text=increase_value, bd=border_size, 
+       command=lambda: selectStudent(name2, True, "rowInfo2")).grid(row=row_sec2, column=3)
+rowInfo2 = Label(root, fg=fg_color, bg=bg_color, text=getDefaultValue(2), font=("Verdana", font_size), width=width_var_info)
+rowInfo2.grid(row=row_sec2, column=2)
 
-plusButton = Button(
-    root,
-    fg="red",
-    bg="black",
-    text="increase value",
-    borderwidth=5,
-    command=lambda: increase1("rowInfo1"),
-    ).grid(row=3, column=3)
+#  row 3
+name3 = "Rau Ivona Maria"
+row_sec3 = 6
+Label(root, fg=fg_color, bg=bg_color, text=name3, font=("Verdana", font_size), width=width_var).grid(row=row_sec3, column=0)
+Button(root, fg=fg_color, bg=bg_color_btn, text=decrease_value, bd=border_size,
+       command=lambda: selectStudent(name3, False, "rowInfo3")).grid(row=row_sec3, column=1)
+Button(root, fg=fg_color, bg=bg_color_btn, text=increase_value, bd=border_size, 
+       command=lambda: selectStudent(name3, True, "rowInfo3")).grid(row=row_sec3, column=3)
+rowInfo3 = Label(root, fg=fg_color, bg=bg_color, text=getDefaultValue(3), font=("Verdana", font_size), width=width_var_info)
+rowInfo3.grid(row=row_sec3, column=2)
 
+#  row 4
+name4 = "Andrei Stoiceanu"
+row_sec4 = 7
+Label(root, fg=fg_color, bg=bg_color, text=name4, font=("Verdana", font_size), width=width_var).grid(row=row_sec4, column=0)
+Button(root, fg=fg_color, bg=bg_color_btn, text=decrease_value, bd=border_size,
+       command=lambda: selectStudent(name4, False, "rowInfo4")).grid(row=row_sec4, column=1)
+Button(root, fg=fg_color, bg=bg_color_btn, text=increase_value, bd=border_size, 
+       command=lambda: selectStudent(name4, True, "rowInfo4")).grid(row=row_sec4, column=3)
+rowInfo4 = Label(root, fg=fg_color, bg=bg_color, text=getDefaultValue(4), font=("Verdana", font_size), width=width_var_info)
+rowInfo4.grid(row=row_sec4, column=2)
 
+#  row 5
+name5 = "Ivan Cecilia"
+row_sec5 = 8
+Label(root, fg=fg_color, bg=bg_color, text=name5, font=("Verdana", font_size), width=width_var).grid(row=row_sec5, column=0)
+Button(root, fg=fg_color, bg=bg_color_btn, text=decrease_value, bd=border_size,
+       command=lambda: selectStudent(name5, False, "rowInfo5")).grid(row=row_sec5, column=1)
+Button(root, fg=fg_color, bg=bg_color_btn, text=increase_value, bd=border_size, 
+       command=lambda: selectStudent(name5, True, "rowInfo5")).grid(row=row_sec5, column=3)
+rowInfo5 = Label(root, fg=fg_color, bg=bg_color, text=getDefaultValue(5), font=("Verdana", font_size), width=width_var_info)
+rowInfo5.grid(row=row_sec5, column=2)
 
-studentName2 = Label(
-    root,
-    fg="red",
-    bg="black",
-    text="Craciun Rafael Alexandru",
-    ).grid(row=4, column=0)
+#  row 6
+name6 = "Tibrigan Nicolae"
+row_sec6 = 9
+Label(root, fg=fg_color, bg=bg_color, text=name6, font=("Verdana", font_size), width=width_var).grid(row=row_sec6, column=0)
+Button(root, fg=fg_color, bg=bg_color_btn, text=decrease_value, bd=border_size,
+       command=lambda: selectStudent(name6, False, "rowInfo6")).grid(row=row_sec6, column=1)
+Button(root, fg=fg_color, bg=bg_color_btn, text=increase_value, bd=border_size, 
+       command=lambda: selectStudent(name6, True, "rowInfo6")).grid(row=row_sec6, column=3)
+rowInfo6 = Label(root, fg=fg_color, bg=bg_color, text=getDefaultValue(6), font=("Verdana", font_size), width=width_var_info)
+rowInfo6.grid(row=row_sec6, column=2)
 
-minusButton = Button(
-    root,
-    fg="red",
-    bg="black",
-    text="decrease value",
-    borderwidth=5,
-    command=lambda: decrease2("rowInfo2"),
-    ).grid(row=4, column=1)
+#  row 7
+name7 = "Nedelcu Alexandru"
+row_sec7 = 10
+Label(root, fg=fg_color, bg=bg_color, text=name7, font=("Verdana", font_size), width=width_var).grid(row=row_sec7, column=0)
+Button(root, fg=fg_color, bg=bg_color_btn, text=decrease_value, bd=border_size,
+       command=lambda: selectStudent(name7, False, "rowInfo7")).grid(row=row_sec7, column=1)
+Button(root, fg=fg_color, bg=bg_color_btn, text=increase_value, bd=border_size, 
+       command=lambda: selectStudent(name7, True, "rowInfo7")).grid(row=row_sec7, column=3)
+rowInfo7 = Label(root, fg=fg_color, bg=bg_color, text=getDefaultValue(7), font=("Verdana", font_size), width=width_var_info)
+rowInfo7.grid(row=row_sec7, column=2)
 
-rowInfo2 = Label(
-    root,
-    fg="red",
-    bg="black",
-    text="temp",
-    )
+#  row 8
+name8 = "Robu Bogdan"
+row_sec8 = 11
+Label(root, fg=fg_color, bg=bg_color, text=name8, font=("Verdana", font_size), width=width_var).grid(row=row_sec8, column=0)
+Button(root, fg=fg_color, bg=bg_color_btn, text=decrease_value, bd=border_size,
+       command=lambda: selectStudent(name8, False, "rowInfo8")).grid(row=row_sec8, column=1)
+Button(root, fg=fg_color, bg=bg_color_btn, text=increase_value, bd=border_size, 
+       command=lambda: selectStudent(name8, True, "rowInfo8")).grid(row=row_sec8, column=3)
+rowInfo8 = Label(root, fg=fg_color, bg=bg_color, text=getDefaultValue(8), font=("Verdana", font_size), width=width_var_info)
+rowInfo8.grid(row=row_sec8, column=2)
 
-rowInfo2.grid(row=4, column=2)
-
-plusButton = Button(
-    root,
-    fg="red",
-    bg="black",
-    text="increase value",
-    borderwidth=5,
-    command=lambda: increase2("rowInfo2"),
-    ).grid(row=4, column=3)
-    
-
+#  row 9
+name9 = "Andrei Netoiu"
+row_sec9 = 12
+Label(root, fg=fg_color, bg=bg_color, text=name9, font=("Verdana", font_size), width=width_var).grid(row=row_sec9, column=0)
+Button(root, fg=fg_color, bg=bg_color_btn, text=decrease_value, bd=border_size,
+       command=lambda: selectStudent(name9, False, "rowInfo9")).grid(row=row_sec9, column=1)
+Button(root, fg=fg_color, bg=bg_color_btn, text=increase_value, bd=border_size, 
+       command=lambda: selectStudent(name9, True, "rowInfo9")).grid(row=row_sec9, column=3)
+rowInfo9 = Label(root, fg=fg_color, bg=bg_color, text=getDefaultValue(9), font=("Verdana", font_size), width=width_var_info)
+rowInfo9.grid(row=row_sec9, column=2)
 # ===== tkinter increase decrease list END
 
 root.mainloop()  # tkinter mainloop
