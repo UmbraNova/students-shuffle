@@ -1,10 +1,10 @@
 
-Pila Andrei    1
-Craciun Rafael Alexandru    3
-Rau Ivona Maria    1
-Andrei Stoiceanu    1
-Ivan Cecilia    1
+Pila Andrei    2
+Craciun Rafael Alexandru    1
+Rau Ivona Maria    2
+Andrei Stoiceanu    2
+Ivan Cecilia    2
 Tibrigan Nicolae    3
-Nedelcu Alexandru    3
+Nedelcu Alexandru    1
 Robu Bogdan    1
-Andrei Netoiu    0
+Andrei Netoiu    1

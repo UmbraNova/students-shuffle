@@ -2,6 +2,8 @@ import random
 import os
 from tkinter import *
 import winsound
+from playsound import playsound
+
 
 
 
@@ -93,10 +95,9 @@ def selectStudent(student_name, select, data):
 
 
 def increaseValue(name, display):
-    try:
-        winsound.Beep(260, 100)
-    except:
-        BaseException
+    playsound(os.getcwd() + "/sounds/button-press.wav")
+    # winsound.Beep(260, 100)
+
     students_lst = studentsFile()
     students_file = open("../students-shuffle/students.txt", "r+")
     for student in students_lst:
@@ -116,10 +117,8 @@ def increaseValue(name, display):
 
 
 def decreaseValue(name, display):
-    try:
-        winsound.Beep(180, 100)
-    except:
-        BaseException
+    playsound(os.getcwd() + "/sounds/button1.wav")
+
     students_lst = studentsFile()
     students_file = open("../students-shuffle/students.txt", "r+")
     # print(display)
@@ -127,6 +126,8 @@ def decreaseValue(name, display):
     for student in students_lst:
         if name in student[0]:
             value = str(student[1]-1)
+            if int(value) < 0:
+                break
             if student[1] > 9:
                 students_file.write("\n" + student[0] + value)
             else:
@@ -153,15 +154,19 @@ root.title("Students Shuffler ^_^")
 
 
 def studentText():
-    try:
-        winsound.Beep(1200, 100)
-        winsound.Beep(1500, 100)
-        winsound.Beep(1200, 100)
-        winsound.Beep(1000, 100)
-        winsound.Beep(2000, 100)
-        winsound.Beep(500, 100)
-    except:
-        BaseException
+    # This was the initial sound but some people have MACs T_T
+    # try:
+    #     winsound.Beep(1200, 100)
+    #     winsound.Beep(1500, 100)
+    #     winsound.Beep(1200, 100)
+    #     winsound.Beep(1000, 100)
+    #     winsound.Beep(2000, 100)
+    #     winsound.Beep(500, 100)
+    # except:
+    #     BaseException
+
+    playsound(os.getcwd() + "/sounds/song2.wav")
+
     Label(
         root, 
         text=mainF(),
