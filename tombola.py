@@ -4,6 +4,19 @@ from tkinter import *
 
 
 # ===== main code START
+
+def studentsFile():
+    students_file = open("../students-shuffle/students.txt", "r+")
+    students_lst = []
+    for line in students_file.readlines():
+        if len(list(line)) > 1:
+            name = line.strip()[:-2]
+            value = int(line.strip()[-2:])
+            students_lst.append([name, value])
+    students_file.close()
+    
+    return students_lst
+
 def mainF():
     def studentProbability(data):
         probChanged = []
@@ -46,14 +59,7 @@ def mainF():
 
     last_name = open("../students-shuffle/last_name.txt", "r")
 
-
-    students_file = open("../students-shuffle/students.txt", "r+")
-    students_lst = []
-    for line in students_file.readlines():
-        if len(list(line)) > 1:
-            name = line.strip()[:-2]
-            value = int(line.strip()[-2:])
-            students_lst.append([name, value])
+    students_lst = studentsFile()
 
     alter_students, prev_name = lastNameCheck(students_lst)
 
@@ -72,49 +78,82 @@ def mainF():
     return chosen_one
 # ===== main code END
 
-# ===== students file START
-def increaseValue():
+# ===== change value START
+def increase1():
+    selectStudent("Pila Andrei", True)
+def decrease1():
+    selectStudent("Pila Andrei", False)
+
+def selectStudent(student_name, select):
+    if select == True:
+        increaseValue(student_name)
+    elif select == False:
+        decreaseValue(student_name)
+
+def increaseValue(name):
+    students_lst = studentsFile()
     students_file = open("../students-shuffle/students.txt", "r+")
-    for line in students_file.readlines():
-        if len(list(line)) > 1:
-            if "Pila Andrei" in line.strip()[:-2]:
-                value = int(line.strip()[-2:])
 
-def studentOne():
-    increaseValue("Pila Andrei")
-def studentTwo():
-    increaseValue("Craciun Rafael Alexandru")
-# ===== students file END
+    for student in students_lst:
+        if name in student[0]:
+            if student[1] > 9:
+                students_file.write("\n" + student[0] + str(student[1]+1))
+            else:
+                students_file.write("\n" + student[0] + " " + str(student[1]+1))
+        else:
+            if student[1] > 9:
+                students_file.write("\n" + student[0] + str(student[1]))
+            else:
+                students_file.write("\n" + student[0] + " " + str(student[1]))
+    students_file.close()
 
-# ===== tkinter START
+def decreaseValue(name):
+    students_lst = studentsFile()
+    students_file = open("../students-shuffle/students.txt", "r+")
+    for student in students_lst:
+        if name in student[0]:
+            if student[1] > 9:
+                students_file.write("\n" + student[0] + str(student[1]-1))
+            else:
+                students_file.write("\n" + student[0] + " " + str(student[1]-1))
+        else:
+            if student[1] > 9:
+                students_file.write("\n" + student[0] + str(student[1]))
+            else:
+                students_file.write("\n" + student[0] + " " + str(student[1]))
+    students_file.close()
+
+# ===== change value END
+
+# ===== main tkinter START
 root = Tk()
-root.geometry("400x400")
+root.geometry("700x700")
 
 def studentText():
     Label(
         root, 
         text=mainF(),
-        width=20,
+        width=25,
         height=2,
         fg="red",
         bg="black",
         font=("Verdana", 20)
-        ).grid(row=2, column=2)
+        ).grid(row=0, column=1)
     
 
 Label(
         root, 
-        width=20,
+        width=25,
         height=2,
         fg="red",
         bg="black",
         font=("Verdana", 20)
-        ).grid(row=2, column=2)
+        ).grid(row=0, column=1)
 
-myButton = Button(
+winButton = Button(
     root, 
     text="Afla Castigatorul",
-    font=("Verdana", 25),
+    font=("Verdana", 20),
     padx=20,
     pady=20,
     borderwidth=5,
@@ -122,18 +161,58 @@ myButton = Button(
     fg="red",
     bg="black"
     )
-myButton.grid(row=0, column=0)
+winButton.grid(row=0, column=0)
 
-increaseValue = Button(
-    root, 
+
+# ===== main tkinter END
+
+
+    # x = [
+    # "Pila Andrei", 
+    # "Craciun Rafael Alexandru",
+    # "Rau Ivona Maria",
+    # "Andrei Stoiceanu",
+    # "Ivan Cecilia",
+    # "Tibrigan Nicolae",
+    # "Nedelcu Alexandru",
+    # "Robu Bogdan",
+    # "Andrei Netoiu"
+    # ]
+
+
+
+# ===== tkinter increase decrease START
+studentName1 = Label(
+    root,
+    fg="red",
+    bg="black",
+    text="Pila Andrei",
+    ).grid(row=3, column=0)
+
+plusButton = Button(
+    root,
+    fg="red",
+    bg="black",
     text="increase value",
     borderwidth=5,
-    command=increaseValue,
-    )
-myButton.grid(row=1, column=1)
+    command=increase1,
+    ).grid(row=3, column=1)
 
-# myStudents = Label(root, text=students[0])
+rowInfo1 = Label(
+    root,
+    fg="red",
+    bg="black",
+    text="num",
+    ).grid(row=3, column=2)
 
+minusButton = Button(
+    root,
+    fg="red",
+    bg="black",
+    text="decrease value",
+    borderwidth=5,
+    command=decrease1,
+    ).grid(row=3, column=3)
+# ===== tkinter increase decrease END
 
-root.mainloop()
-# ===== tkinter END
+root.mainloop()  # tkinter mainloop
