@@ -1,5 +1,5 @@
 
-Pila Andrei    4
+Pila Andrei     7
 Craciun Rafael Alexandru    1
 Rau Ivona Maria    1
 Andrei Stoiceanu    1
@@ -7,4 +7,4 @@ Ivan Cecilia    1
 Tibrigan Nicolae    1
 Nedelcu Alexandru    1
 Robu Bogdan    1
-Andrei Netoiu       0
+Andrei Netoiu          0

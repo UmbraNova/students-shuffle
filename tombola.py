@@ -79,55 +79,71 @@ def mainF():
 # ===== main code END
 
 # ===== change value START
+student_value = 0
+
 def increase1():
     selectStudent("Pila Andrei", True)
 def decrease1():
     selectStudent("Pila Andrei", False)
 
-def selectStudent(student_name, select):
+
+def selectStudent(student_name, select=None):
     if select == True:
         increaseValue(student_name)
     elif select == False:
         decreaseValue(student_name)
 
+
 def increaseValue(name):
     students_lst = studentsFile()
     students_file = open("../students-shuffle/students.txt", "r+")
 
+    global student_value
+
     for student in students_lst:
         if name in student[0]:
+            value = str(student[1]+1)
             if student[1] > 9:
-                students_file.write("\n" + student[0] + str(student[1]+1))
+                students_file.write("\n" + student[0] + value)
             else:
-                students_file.write("\n" + student[0] + " " + str(student[1]+1))
+                students_file.write("\n" + student[0] + " " + value)
+            student_value = value
         else:
             if student[1] > 9:
                 students_file.write("\n" + student[0] + str(student[1]))
             else:
                 students_file.write("\n" + student[0] + " " + str(student[1]))
     students_file.close()
+    rowInfo1.configure(text=student_value)
 
 def decreaseValue(name):
     students_lst = studentsFile()
     students_file = open("../students-shuffle/students.txt", "r+")
+
+    global student_value
+
     for student in students_lst:
         if name in student[0]:
+            value = str(student[1]-1)
             if student[1] > 9:
-                students_file.write("\n" + student[0] + str(student[1]-1))
+                students_file.write("\n" + student[0] + value)
             else:
-                students_file.write("\n" + student[0] + " " + str(student[1]-1))
+                students_file.write("\n" + student[0] + " " + value)
+            student_value = value
         else:
             if student[1] > 9:
                 students_file.write("\n" + student[0] + str(student[1]))
             else:
                 students_file.write("\n" + student[0] + " " + str(student[1]))
     students_file.close()
-
+    rowInfo1.configure(text=student_value)
 # ===== change value END
+
+
 
 # ===== main tkinter START
 root = Tk()
-root.geometry("700x700")
+# root.geometry("800x800")
 
 def studentText():
     Label(
@@ -138,9 +154,8 @@ def studentText():
         fg="red",
         bg="black",
         font=("Verdana", 20)
-        ).grid(row=0, column=1)
+        ).grid(row=0, column=1, columnspan=3)
     
-
 Label(
         root, 
         width=25,
@@ -148,7 +163,7 @@ Label(
         fg="red",
         bg="black",
         font=("Verdana", 20)
-        ).grid(row=0, column=1)
+        ).grid(row=0, column=1, columnspan=3)
 
 winButton = Button(
     root, 
@@ -163,7 +178,12 @@ winButton = Button(
     )
 winButton.grid(row=0, column=0)
 
-
+Label(
+        root, 
+        width=150,
+        height=1,
+        bg="black",
+        ).grid(row=1, column=0, columnspan=50)
 # ===== main tkinter END
 
 
@@ -181,7 +201,7 @@ winButton.grid(row=0, column=0)
 
 
 
-# ===== tkinter increase decrease START
+# ===== tkinter increase decrease list START
 studentName1 = Label(
     root,
     fg="red",
@@ -189,30 +209,32 @@ studentName1 = Label(
     text="Pila Andrei",
     ).grid(row=3, column=0)
 
-plusButton = Button(
-    root,
-    fg="red",
-    bg="black",
-    text="increase value",
-    borderwidth=5,
-    command=increase1,
-    ).grid(row=3, column=1)
-
-rowInfo1 = Label(
-    root,
-    fg="red",
-    bg="black",
-    text="num",
-    ).grid(row=3, column=2)
-
 minusButton = Button(
     root,
     fg="red",
     bg="black",
     text="decrease value",
     borderwidth=5,
-    command=decrease1,
+    command=lambda: decrease1(),
+    ).grid(row=3, column=1)
+
+rowInfo1 = Label(
+    root,
+    fg="red",
+    bg="black",
+    text=student_value,
+    )
+
+rowInfo1.grid(row=3, column=2)
+
+plusButton = Button(
+    root,
+    fg="red",
+    bg="black",
+    text="increase value",
+    borderwidth=5,
+    command=lambda: increase1(),
     ).grid(row=3, column=3)
-# ===== tkinter increase decrease END
+# ===== tkinter increase decrease list END
 
 root.mainloop()  # tkinter mainloop
