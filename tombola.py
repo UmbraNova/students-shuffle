@@ -1,9 +1,7 @@
 import random
 import os
 from tkinter import *
-import winsound
 from playsound import playsound
-
 
 
 
