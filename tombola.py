@@ -163,7 +163,10 @@ def studentText():
     # except:
     #     BaseException
 
-    playsound(os.getcwd() + "/sounds/song2.wav")
+    # playsound(os.getcwd() + "/sounds/song2.wav")
+    # playsound(os.getcwd() + "/sounds/braaamepic2.wav")
+    # playsound(os.getcwd() + "/sounds/sus1.wav")
+    playsound(os.getcwd() + "/sounds/tomandjerry2.wav")
 
     Label(
         root, 
