@@ -3,9 +3,6 @@ import os
 from tkinter import *
 from playsound import playsound
 
-# pip install playsound
-# if is not working, try:
-# pip install --upgrade wheel
 
 def ifNoFile():
     students = [
