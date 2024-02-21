@@ -3,7 +3,9 @@ import os
 from tkinter import *
 from playsound import playsound
 
-
+# pip install playsound
+# if is not working, try:
+# pip install --upgrade wheel
 
 def ifNoFile():
     students = [
@@ -115,7 +117,7 @@ def increaseValue(name, display):
 
 
 def decreaseValue(name, display):
-    playsound(os.getcwd() + "/sounds/button1.wav")
+    playsound(os.getcwd() + "/sounds/button-press.wav")
 
     students_lst = studentsFile()
     students_file = open("../students-shuffle/students.txt", "r+")
@@ -166,7 +168,7 @@ def studentText():
     # playsound(os.getcwd() + "/sounds/song2.wav")
     # playsound(os.getcwd() + "/sounds/braaamepic2.wav")
     # playsound(os.getcwd() + "/sounds/sus1.wav")
-    playsound(os.getcwd() + "/sounds/tomandjerry2.wav")
+    playsound(os.getcwd() + "/sounds/boom1.wav")
 
     Label(
         root, 
